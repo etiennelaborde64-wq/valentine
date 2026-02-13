@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour Eloïse 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fit=crop&w=1950&q=80') no-repeat center center/cover;
+    overflow: hidden;
+    color: white;
+    transition: background 1s ease;
+}
+
+.container {
+    background: rgba(0,0,0,0.5);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 90%;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px black;
+}
+
+button {
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #ff69b4;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff1493;
+}
+
+.falling {
+    position: absolute;
+    top: -50px;
+    font-size: 30px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="content">
+    <h1>Eloïse, veux-tu être ma valentine ? 💖</h1>
+    <button onclick="clickAnswer(true)">OUI</button>
+    <button onclick="clickAnswer(false)">Non va crever</button>
+</div>
+
+<script>
+function clickAnswer(isYes){
+    const container = document.getElementById("content");
+    const buttons = container.querySelectorAll("button");
+    buttons.forEach(b => b.remove());
+
+    const cuteCatBg = "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg";
+
+    if(isYes){
+        container.querySelector("h1").textContent = "Félicitations, prépare toi à passer la meilleure année de ta vie 🎉";
+        document.body.style.background = `url('${cuteCatBg}') no-repeat center center/cover`;
+
+        // Faire tomber des cœurs
+        for(let i=0;i<30;i++){
+            let heart = document.createElement("div");
+            heart.className = "falling";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random()*100+"vw";
+            heart.style.animationDuration = (2+Math.random()*3)+"s";
+            heart.style.fontSize = (20+Math.random()*20)+"px";
+            document.body.appendChild(heart);
+
+            setTimeout(()=>{ heart.remove(); }, 5000);
+        }
+    } else {
+        container.querySelector("h1").textContent = "Dommage, j'aurais essayé, veux-tu aller boire un verre quand même ? 😳";
+        document.body.style.background = `url('${cuteCatBg}') no-repeat center center/cover`;
+    }
+}
+</script>
+
+</body>
+</html>
